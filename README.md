@@ -1,6 +1,8 @@
-# CBViewer
-
-A format proposal for a CBZ/CBR alternative, as well as a simple viewer for it.
+<p align="center">
+    <img width=100 height=100 src="https://github.com/Jordy3D/CBViewer/assets/19144524/b1d74fde-e004-490b-b44a-a88b5115b10b">
+    <br/>
+    A format proposal for a CBZ/CBR alternative, as well as a simple viewer for it.
+</p>
 
 ---
 
@@ -62,6 +64,8 @@ Below is an example of the metadata file, based on the [No Guns Life](https://ww
   }
 ```
 
+An example CBV dile is available in the root of this repo, appropriately called `Example.cbv`.  
+
 ---
 
 ## Viewer
@@ -82,3 +86,9 @@ I might make a better one in the future, but this is just a proof of concept.
 - The first page always fails to resize, but will work if you toggle pages
 - The GUI is ugly and barebones  
 - The code is a mess
+
+### Screenshots
+Or... GIF, actually. Just a quick demonstration:  
+<p align="center">
+    <img src="https://github.com/Jordy3D/CBViewer/assets/19144524/eaac6fcf-5c1a-4602-901d-5c888bfa4a22">
+</p>
