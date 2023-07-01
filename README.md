@@ -64,7 +64,7 @@ Below is an example of the metadata file, based on the [No Guns Life](https://ww
   }
 ```
 
-An example CBV dile is available in the root of this repo, appropriately called `Example.cbv`.  
+An example CBV file is available in the root of this repo, appropriately called `Example.cbv`.  
 
 ---
 
