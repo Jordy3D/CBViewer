@@ -17,9 +17,9 @@ async function loadVolume(file) {
 
     // load the volume
     volume = await unzipCbv(file);
-    console.log(volume);
-
     displayDetails(volume);
+
+    return volume;
 }
 
 function displayDetails(volume) {
@@ -27,7 +27,7 @@ function displayDetails(volume) {
         bookDetails.innerHTML = 'No details found.';
         return;
     }
-    
+
     bookDetails.innerHTML = '';
     bookDetails.innerHTML = `<h2>${volume.name}</h2>`;
 
@@ -156,3 +156,25 @@ document.addEventListener('keydown', (e) => {
 document.querySelector('.viewer').addEventListener('dblclick', (e) => {
     if (e.target.classList.contains('page')) e.target.classList.toggle('zoom');
 });
+
+
+// Mobile support
+
+// if on mobile
+if (/Mobi/.test(navigator.userAgent)) {
+    // set details to "double tap to load a volume"
+    bookDetails.innerHTML = 'Double tap to load a volume';
+}
+
+const fileSelector = document.getElementById('file');
+document.querySelector('main').addEventListener('dblclick', () => {
+    if (!volume)
+        document.getElementById('file').click();
+});
+
+fileSelector.onchange = async () => {
+    const file = fileSelector.files[0];
+    volume = await loadVolume(file);
+    displayPage(volume, chapterIndex, pageIndex);
+    console.log(volume);
+};
