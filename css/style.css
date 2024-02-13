@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.hidden {
+    display: none !important;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+
+    overflow: hidden;
+}
+
+header,
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+
+    gap: 5px;
+    height: 100%;
+    width: 100%;
+
+    /* center the input, details, controls, and viewer */
+    align-items: center;
+    justify-items: center;
+}
+
+.ui {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    /* center the input, details, and controls */
+    align-items: center;
+    justify-items: center;
+}
+
+.input {
+    display: flex;
+    gap: 5px;
+}
+
+.details {
+    height: 20px;
+}
+
+.details span {
+    margin-right: 10px;
+}
+
+.viewer.fit {
+    display: flex;
+    justify-content: center;
+
+    height: 100%;
+    width: 100%;
+}
+
+/* contain the image so that it's not wider than the screen or taller than the screen */
+.viewer.fit .page {
+    max-width: 100%;
+    max-height: 100%;
+
+    height: 100%;
+    width: 100%;
+}
+
+.bookDetails {
+    /* position absolutley on the right side */
+    position: absolute;
+
+    right: -190px;
+    top: 57px;
+    bottom: 39px;
+
+    padding: 10px;
+    width: 200px;
+
+    background-color: rgba(0, 0, 0);
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    transition: right 100ms ease-in-out;
+}
+
+.bookDetails:hover {
+    right: 0;
+
+    transition: right 200ms ease-in-out;
+}
+
+.bookDetails .detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.bookDetails .detail .detailName {
+    font-weight: bold;
+}
+
+.bookDetails .detail .detailValue {
+    padding-left: 2em;
+}
+
+
+/* DROPZONE */
+
+#dropzone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    z-index: 100;
+
+    color: #fff;
+    font-size: 3em;
+
+    visibility: hidden;
+}
+
+#dropzone p {
+    pointer-events: none;
+}
+
+/* ZOOM */
+
+
+.zoom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 1000;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.page.zoom {
+    max-width: none !important;
+    max-height: none !important;
+
+    width: auto;
+    height: auto;
+
+    cursor: zoom-out;
+}
+
+.zoom img {
+    max-width: 100%;
+    max-height: 100%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}

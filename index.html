@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBViewer</title>
+
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+
+    <script src="js/modules/jszip.min.js"></script>
+
+    <link rel="stylesheet" href="css/magic.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="CBViewer">
+    <meta property="og:description" content="A simple web-based comic book viewer">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Jordy3D/CBViewer/main/icon.ico">
+    <meta property="og:url" content="https://jordy3d.github.io/cbviewer">
+    <meta property="og:type" content="website">
+</head>
+
+<body>
+
+    <div id="dropzone">
+        <div class="dropzone__prompt">
+            <p>Drop files here</p>
+        </div>
+    </div>
+
+    <script src="js/dropzone.js"></script>
+
+    <header>
+        <h1><a href="index.html">CBViewer</a></h1>
+    </header>
+
+    <main>
+        <div class="ui">
+            <div class="input hidden">
+                <input type="file" id="file" name="file">
+                <button id="submit">Submit</button>
+            </div>
+            <div class="details">
+                <!-- chapter and page details are displayed here -->
+                Drag and drop a .CBV file to start!
+            </div>
+            <div class="controls">
+                <!-- prev/next page, prev/next chapter -->
+                <button id="prevChapter">Prev Chapter</button>
+                <button id="prevPage">Prev Page</button>
+                <button id="nextPage">Next Page</button>
+                <button id="nextChapter">Next Chapter</button>
+            </div>
+
+            <div class="bookDetails">
+                <!-- info about author, volume, genres, chapters, etc -->
+            </div>
+        </div>
+        <div class="viewer fit">
+            <!-- the current page is displayed here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>Original proposal on <a href="https://github.com/Jordy3D/cbviewer">GitHub</a> by Jordy3D</p>
+    </footer>
+
+
+    <script src="js/load.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        // add controls for pressing the arrow keys
+        // left and right for prev/next page
+        // up and down for prev/next chapter
+
+
+    </script>
+</body>
+
+</html>

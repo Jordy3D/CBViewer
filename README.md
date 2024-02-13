@@ -12,7 +12,7 @@
 
 CBZ and CBR files are fine and all, but the lack of metadata, as well as the constant "do I use chapters or volumes?" question makes it a bit annoying to use when keeping track of reading progress and the like.  
 A CBV file tries to solve this by acting as a "volume" container for CBZ files, as well as containing a metadata file and a cover image.  
-My implementation is a bit weird, unzipping the CBV into a folder, then unzipping the CBZ files into a folder inside that folder, but it works. 
+My implementation is a bit weird, unzipping the CBV into a folder, then unzipping the CBZ files into a folder inside that folder, but it works.  
 
 Ultimately, this is just a proposal, and I don't expect it to be widely adopted, but I think it's a neat idea. It would be nice to see some actual applications use this format, but I don't have the time or skill to make one myself.
 
@@ -70,24 +70,23 @@ An example CBV file is available in the root of this repo, appropriately called 
 
 ## Viewer
 
-`readCBV.py` is a simple viewer for CBV files. Uses an (admittedly bad) Tkinter GUI.  
-I might make a better one in the future, but this is just a proof of concept.  
-`detailsCBV.py` is a simple script to print the metadata of a CBV file.
+[This URL](https://jordy3d.github.io/CBViewer) will take you to the viewer. It's a simple web app that can open CBV files and display the pages. It's not very good, but it works.
 
 ### Features
 
-- Can open CBV files as well as CBZ files
-- Resize page to fit window (including spreads)
-- That's about it
+- Open and view CBV files
+- Page resizes to fit the window
+- Current page and chapter are displayed
+- Shows details about the volume on the sidebar
 
-### Issues
+### Issues / TODO
 
-- Resizing is super slow
-- The first page always fails to resize, but will work if you toggle pages
-- The GUI is ugly and barebones  
-- The code is a mess
+- Doesn't work on mobile
+- No way to zoom in or out
+- Can't open CBZ files for legacy viewing
 
 ### Screenshots
+
 Or... GIF, actually. Just a quick demonstration:  
 <p align="center">
     <img src="https://github.com/Jordy3D/CBViewer/assets/19144524/eaac6fcf-5c1a-4602-901d-5c888bfa4a22">
