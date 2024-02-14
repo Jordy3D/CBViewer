@@ -53,18 +53,30 @@ function displayDetails(volume) {
     }
 }
 
+const displayAsDiv = false;
 async function displayPage(volume, chapterIndex, pageIndex) {
     viewer.innerHTML = '';
 
-    const page = document.createElement('div');
-    const file = volume.chapters[chapterIndex].files[pageIndex];
-    let pageUrl = URL.createObjectURL(file);
-    page.classList.add('page');
-    page.classList.add('shadow');
-    page.style.backgroundImage = `url(${pageUrl})`;
-    page.style.backgroundSize = 'contain';
-    page.style.backgroundRepeat = 'no-repeat';
-    page.style.backgroundPosition = 'center';
+    var page = null;
+
+    if (displayAsDiv) {
+        page = document.createElement('div');
+        const file = volume.chapters[chapterIndex].files[pageIndex];
+        let pageUrl = URL.createObjectURL(file);
+        page.classList.add('page');
+        page.classList.add('shadow');
+        page.style.backgroundImage = `url(${pageUrl})`;
+        page.style.backgroundSize = 'contain';
+        page.style.backgroundRepeat = 'no-repeat';
+        page.style.backgroundPosition = 'center';
+    }
+    else {
+        page = document.createElement('img');
+        const file = volume.chapters[chapterIndex].files[pageIndex];
+        let pageUrl = URL.createObjectURL(file);
+        page.src = pageUrl;
+        page.classList.add('page');
+    }
 
     viewer.appendChild(page);
 
@@ -156,6 +168,28 @@ document.addEventListener('keydown', (e) => {
 document.querySelector('.viewer').addEventListener('dblclick', (e) => {
     if (e.target.classList.contains('page')) e.target.classList.toggle('zoom');
 });
+
+// add toggle to #toggleFit to toggle between .viewer.fit and .viewer.width
+document.getElementById('toggleFit').addEventListener('click', () => {
+    viewer.classList.toggle('fit');
+    viewer.classList.toggle('width');
+
+    let fitToggle = document.getElementById('toggleFit');
+    fitToggle.innerHTML = viewer.classList.contains('fit') ? 'Fit Height' : 'Fit Width';
+});
+
+// toggle .night existing on body
+document.getElementById('toggleNight').addEventListener('click', () => {
+    document.body.classList.toggle('night');
+    let nightToggle = document.getElementById('toggleNight');
+    nightToggle.innerHTML = document.body.classList.contains('night') ? 'Night Mode' : 'Day Mode';
+});
+
+// tap the right side of the screen to go to the next page
+document.querySelector('.viewer').addEventListener('click', (e) => {
+    if (e.clientX > window.innerWidth / 2) nextPage();
+    else prevPage();
+})
 
 
 // Mobile support

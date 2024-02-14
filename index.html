@@ -21,8 +21,7 @@
     <meta property="og:type" content="website">
 </head>
 
-<body>
-
+<body class="night">
     <div id="dropzone">
         <div class="dropzone__prompt">
             <p>Drop files here</p>
@@ -41,16 +40,23 @@
                 <input type="file" id="file" name="file">
                 <button id="submit">Submit</button>
             </div>
-            <div class="details">
-                <!-- chapter and page details are displayed here -->
-                Drag and drop a .CBV file to start!
-            </div>
+
             <div class="controls">
                 <!-- prev/next page, prev/next chapter -->
-                <button id="prevChapter">Prev Chapter</button>
-                <button id="prevPage">Prev Page</button>
-                <button id="nextPage">Next Page</button>
-                <button id="nextChapter">Next Chapter</button>
+                <button id="prevChapter" disabled>Prev Chapter</button>
+                <button id="prevPage" disabled>Prev Page</button>
+                <div class="details">
+                    <!-- chapter and page details are displayed here -->
+                    Drag and drop a .CBV file to start!
+                </div>
+                <button id="nextPage" disabled>Next Page</button>
+                <button id="nextChapter" disabled>Next Chapter</button>
+                <!-- button to toggle between .viewer.fit and .viewer.width -->
+                <span>|</span>
+                <button id="toggleFit">Fit Height</button>
+                <button id="toggleNight">Night Mode</button>
+                <!-- 'just' mode -->
+                <!-- <button id="just">Just</button> -->
             </div>
 
             <div class="bookDetails">
