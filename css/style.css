@@ -118,7 +118,6 @@ main {
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 /* viewer fit height */
@@ -126,6 +125,7 @@ main {
     height: 100%;
     width: 100%;
     padding: 0;
+    justify-content: center;
 }
 
 .viewer.fit .page {
