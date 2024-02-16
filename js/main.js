@@ -185,20 +185,12 @@ document.getElementById('toggleNight').addEventListener('click', () => {
     nightToggle.innerHTML = document.body.classList.contains('night') ? 'Night Mode' : 'Day Mode';
 });
 
-// tap the right side of the screen to go to the next page
-document.querySelector('.viewer').addEventListener('click', (e) => {
-    if (e.clientX > window.innerWidth / 2) nextPage();
-    else prevPage();
-})
+// touch zones
+document.getElementById('touchLeft').addEventListener('click', prevPage);
+document.getElementById('touchRight').addEventListener('click', nextPage);
 
 
 // Mobile support
-
-// if on mobile
-if (/Mobi/.test(navigator.userAgent)) {
-    // set details to "double tap to load a volume"
-    bookDetails.innerHTML = 'Double tap to load a volume';
-}
 
 const fileSelector = document.getElementById('file');
 document.querySelector('main').addEventListener('dblclick', () => {

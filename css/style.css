@@ -25,6 +25,8 @@ footer {
     color: white;
     padding: 10px;
 
+    z-index: 10;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,6 +64,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 5px;
+
+    z-index: 10;
 
     width: 100%;
 
@@ -111,13 +115,14 @@ main {
     text-align: center;
 
     user-select: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* viewer fit height */
 .viewer.fit {
-    display: flex;
-    justify-content: center;
-
     height: 100%;
     width: 100%;
     padding: 0;
@@ -139,9 +144,6 @@ main {
     filter: contrast(1.3);
 
     overflow-y: scroll !important;
-
-    display: flex;
-    flex-direction: column;
 
     width: 100% !important;
     height: 100% !important;
@@ -285,5 +287,101 @@ body.night {
 
         border: 1px solid #333;
         border-right: none;
+    }
+}
+
+
+
+/* touch zones */
+
+.touchZone {
+    position: fixed;
+    z-index: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 25%;
+    max-width: 150px;
+    top: 0;
+    bottom: 0;
+
+    color: white;
+    opacity: 0.25;
+
+    font-size: 3em;
+
+    transition: opacity 200ms ease-in-out;
+}
+
+.touchZone.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.touchZone.faded {
+    opacity: 0;
+}
+
+.touchZone:hover {
+    opacity: 0.25;
+}
+
+#touchLeft
+{
+    left: 0;
+    background-color: #f00;
+}
+
+#touchRight
+{
+    right: 0;
+    background-color: #00f;
+}
+
+
+
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+    .bookDetails {
+        display: none;
+    }
+
+    .ui button
+    {
+        display: none;
+    }
+
+    .ui span
+    {
+        display: none;
+    }
+
+    .touchZone:hover
+    {
+        opacity: 0;
+    }
+
+    main:not(:has(.page))
+    {
+        .ui
+        {
+            font-size: 0;
+            height: 30px;
+            width: 100%;
+        }
+    
+        .ui::before
+        {
+            content: "Double-tap to load a book";
+            text-align: center;
+    
+            font-size: 15px;
+            color: white;
+        }
     }
 }
