@@ -73,3 +73,44 @@ async function unzipCbv(file) {
 
     return volume;
 }
+
+async function unzipCbz(file) {
+    const zip = new JSZip();
+    const data = await zip.loadAsync(file);
+    const volumeName = file.name.split('.')[0];
+    const volume = new Volume(volumeName);
+
+    viewer.innerHTML = `<h1>Loading ${volumeName}...</h1>`;
+
+    // assume the .cbz is a single chapter
+    const chapterName = volumeName;
+    const chapterFiles = [];
+
+    // extract the images from the chapter zip
+    let pageCount = Object.keys(data.files).filter(fileName => validImageExtensions.some(ext => fileName.endsWith(ext))).length;
+    let pageIndex = 1;
+
+    for (let fileName in data.files) {
+        if (validImageExtensions.some(ext => fileName.endsWith(ext))) {
+
+            viewer.innerHTML = `<h1>Loading ${volumeName} | Chapter 1</h1><h2>Page ${pageIndex} of ${pageCount}</h2>`;
+            pageIndex++;
+
+            const fileData = await data.files[fileName].async('blob');
+            const file = new File([fileData], fileName);
+            const url = URL.createObjectURL(file);
+            chapterFiles.push(file);
+        }
+    }
+
+    const chapter = new Chapter(chapterName, chapterFiles);
+    volume.addChapter(chapter);
+
+    return volume;
+}
+
+async function unzipRar(file) {
+    // not implemented yet
+    viewer.innerHTML = '<h1>CBR files are not supported yet</h1>';
+    return null;
+}

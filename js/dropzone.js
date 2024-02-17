@@ -1,15 +1,12 @@
 
 // Dropzone courtesy of https://jsfiddle.net/oL2akhtz/
+// Modified in a few places
 
 const dropZone = document.getElementById('dropzone');
 var visible = false;
 
 function setDropZoneVisibility(vis) {
-    if (vis)
-        dropZone.style.visibility = "visible";
-    else
-        dropZone.style.visibility = "hidden";
-
+    dropZone.style.visibility = vis ? "visible" : "hidden";
     visible = vis;
 }
 
@@ -26,19 +23,15 @@ function handleDrop(e) {
 
     // log the files that were dropped
     let file = e.dataTransfer.files[0];
-    console.log(file);
-
-    // handle the file
-    volume = loadVolume(file).then(() =>
-        displayPage(volume, chapterIndex, pageIndex)
-    );
+    loadVolume(file).then((volume) => {
+        if (volume)
+            displayPage(volume, chapterIndex, pageIndex);
+    });
 }
 
 // 1
 window.addEventListener('dragenter', function (e) {
-    // if the dropzone is not already visible
-    if (!visible)
-        setDropZoneVisibility(true);
+    if (!visible) setDropZoneVisibility(true);
 });
 
 // 2
@@ -47,8 +40,8 @@ dropZone.addEventListener('dragover', allowDrag);
 
 // 3
 dropZone.addEventListener('dragleave', function (e) {
-    // if the dropzone is left into the page (not into a child element)
-    if (e.target === dropZone)
+    // if dragleave results in entering a child element, ignore it
+    if (!e.relatedTarget || !this.contains(e.relatedTarget))
         setDropZoneVisibility(false);
 });
 

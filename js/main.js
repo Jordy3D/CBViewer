@@ -7,6 +7,19 @@ const viewer = document.querySelector('.viewer');
 const details = document.querySelector('.details');
 const bookDetails = document.querySelector('.bookDetails');
 
+const fileInput = document.getElementById('file');
+
+const validFileTypes = [
+    'cbv',
+    'cbz',
+    'zip',
+    'cbr'
+]
+
+// set fileInput to accept all valid file types
+fileInput.accept = validFileTypes.map(ext => `.${ext}`).join(',');
+
+
 async function loadVolume(file) {
     // set the page to a loading screen
     viewer.innerHTML = '<h1>Loading...</h1>';
@@ -15,8 +28,22 @@ async function loadVolume(file) {
     chapterIndex = 0;
     pageIndex = 0;
 
-    // load the volume
-    volume = await unzipCbv(file);
+    let ext = file.name.split('.').pop();
+
+    if (!validFileTypes.includes(ext)) {
+        console.log('Invalid file type');
+        viewer.innerHTML = '<h1>Invalid file type</h1>';
+        return;
+    }
+    else if (ext === 'cbv')
+        volume = await unzipCbv(file);
+    else if (ext === 'cbz' || ext === 'zip')
+        volume = await unzipCbz(file);
+    else if (ext === 'cbr')
+        volume = await unzipRar(file);
+    else
+        viewer.innerHTML = '<h1>Error loading volume</h1>';
+
     displayDetails(volume);
 
     return volume;
@@ -142,9 +169,10 @@ function disableIfNoNextPrev() {
 
 document.getElementById('submit').addEventListener('click', async () => {
     const file = document.getElementById('file').files[0];
-    volume = await loadVolume(file).then(() =>
-        displayPage(volume, chapterIndex, pageIndex)
-    );
+    loadVolume(file).then((volume) => {
+        if (volume)
+            displayPage(volume, chapterIndex, pageIndex);
+    });
 });
 
 document.getElementById('prevChapter').addEventListener('click', prevChapter);
@@ -200,7 +228,8 @@ document.querySelector('main').addEventListener('dblclick', () => {
 
 fileSelector.onchange = async () => {
     const file = fileSelector.files[0];
-    volume = await loadVolume(file);
-    displayPage(volume, chapterIndex, pageIndex);
-    console.log(volume);
+    loadVolume(file).then((volume) => {
+        if (volume)
+            displayPage(volume, chapterIndex, pageIndex);
+    });
 };
