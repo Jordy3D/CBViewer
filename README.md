@@ -70,24 +70,26 @@ An example CBV file is available in the root of this repo, appropriately called 
 
 ## Viewer
 
-[This URL](https://jordy3d.github.io/CBViewer) will take you to the viewer. It's a simple web app that can open CBV files and display the pages. It's not very good, but it works.
+[This URL](https://jordy3d.github.io/CBViewer) will take you to the viewer. It's a simple web app that can open and display CBV files, as well as CBZ files.
 
 ### Features
 
 - Open and view CBV files
+  - Also supports CBZ files
 - Page resizes to fit the window
 - Current page and chapter are displayed
 - Shows details about the volume on the sidebar
+- Dark/Light Modes
+- Rudimentary mobile support
 
 ### Issues / TODO
 
-- Doesn't work on mobile
-- No way to zoom in or out
-- Can't open CBZ files for legacy viewing
+- No great way to zoom in on images
+- Can't open CBR files for legacy viewing
 
 ### Screenshots
 
 Or... GIF, actually. Just a quick demonstration:  
 <p align="center">
-    <img src="https://github.com/Jordy3D/CBViewer/assets/19144524/eaac6fcf-5c1a-4602-901d-5c888bfa4a22">
+    <img src="https://github.com/Jordy3D/CBViewer/assets/19144524/8c2a7471-7af0-447f-bf3a-151b8de9dbdc">    
 </p>
