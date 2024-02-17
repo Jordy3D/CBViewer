@@ -31,7 +31,10 @@ function handleDrop(e) {
 
 // 1
 window.addEventListener('dragenter', function (e) {
-    if (!visible) setDropZoneVisibility(true);
+    // if a drag does not originate from the dropzone, show it
+    var showDropzone = true;
+    
+    setDropZoneVisibility(showDropzone);
 });
 
 // 2

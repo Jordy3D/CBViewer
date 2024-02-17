@@ -141,8 +141,6 @@ main {
 
 /* viewer fit width */
 .viewer.width {
-    filter: contrast(1.3);
-
     overflow-y: scroll !important;
 
     width: 100% !important;
@@ -278,7 +276,11 @@ body.night {
     }
 
     .viewer {
-        filter: contrast(1.3);
+        /* filter: contrast(1.3); */
+        /* filter: invert(1) contrast(1.5) brightness(1.5) sepia(0.8) saturate(0.8) hue-rotate(180deg); */
+        mix-blend-mode: lighten;
+
+        /* filter: invert(0%) brightness(91%) contrast(81%); */
     }
 
     .bookDetails {
