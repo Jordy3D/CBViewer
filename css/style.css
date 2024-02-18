@@ -295,51 +295,66 @@ body.night {
 
 
 /* touch zones */
-
-.touchZone {
+.touch-zones {
+    height: 100vh;
+    width: 100vw;
     position: fixed;
-    z-index: 0;
+    z-index: 1;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 25%;
-    max-width: 150px;
-    top: 0;
-    bottom: 0;
-
-    color: white;
-    opacity: 0.25;
-
-    font-size: 3em;
-
-    transition: opacity 200ms ease-in-out;
-}
-
-.touchZone.hidden {
-    opacity: 0;
     pointer-events: none;
 }
 
-.touchZone.faded {
-    opacity: 0;
+
+.touch-zones > div {
+    /* contains two smaller zones, ie #touchLeft and #touchLeftMinor */
+    height: 100%;
+    width: 25%;
+    max-width: 150px;
+    
+    position: absolute;
+    top: 0;
+
+    display: grid;
+    grid-template-rows: 20% 80%;
+
+    pointer-events: auto;
 }
 
-.touchZone:hover {
+
+.touch-zones .right {
+    right: 0;
+}
+
+.touchZone {
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;
+}
+
+.touchZone:hover
+{
     opacity: 0.25;
 }
 
+
 #touchLeft
 {
-    left: 0;
     background-color: #f00;
+}
+#touchLeftMinor
+{
+    background-color: #f66;
 }
 
 #touchRight
 {
-    right: 0;
     background-color: #00f;
+}
+#touchRightMinor
+{
+    background-color: #66f;
 }
 
 

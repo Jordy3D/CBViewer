@@ -107,12 +107,16 @@ async function displayPage(volume, chapterIndex, pageIndex) {
 
     viewer.appendChild(page);
 
-    details.innerHTML = '';
-    details.innerHTML = `Chapter ${chapterIndex + 1} of ${volume.chapters.length} | Page ${pageIndex + 1} of ${volume.chapters[chapterIndex].files.length}`;
+    displayPositionDetails();
 
     document.title = `${volume.name} | Chapter ${chapterIndex + 1} | Page ${pageIndex + 1}`;
 
     disableIfNoNextPrev();
+}
+
+function displayPositionDetails() {
+    details.innerHTML = `Chapter <span class="chapterIndex">${chapterIndex + 1}</span> of <span class="chapterCount">${volume.chapters.length}</span> | Page <span class="pageIndex">${pageIndex + 1}</span> of <span class="pageCount">${volume.chapters[chapterIndex].files.length}</span>`;
+    addSkipEvents();
 }
 
 function prevPage() {
@@ -189,13 +193,14 @@ const keyMap = {
 
 document.addEventListener('keydown', (e) => {
     const action = keyMap[e.key];
-    if (action) action();
+    const isInput = document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA';
+    if (action && !isInput) action();
 });
 
 // add the ability to double-click the page to zoom in and out
-document.querySelector('.viewer').addEventListener('dblclick', (e) => {
-    if (e.target.classList.contains('page')) e.target.classList.toggle('zoom');
-});
+// document.querySelector('.viewer').addEventListener('dblclick', (e) => {
+//     if (e.target.classList.contains('page')) e.target.classList.toggle('zoom');
+// });
 
 // add toggle to #toggleFit to toggle between .viewer.fit and .viewer.width
 document.getElementById('toggleFit').addEventListener('click', () => {
@@ -216,6 +221,44 @@ document.getElementById('toggleNight').addEventListener('click', () => {
 // touch zones
 document.getElementById('touchLeft').addEventListener('click', prevPage);
 document.getElementById('touchRight').addEventListener('click', nextPage);
+document.getElementById('touchLeftMinor').addEventListener('click', prevChapter);
+document.getElementById('touchRightMinor').addEventListener('click', nextChapter);
+
+// skip to chapter and page
+function addSkipEvents() {
+    const addSkipEvent = (selector, max, value, updateValue) => {
+        document.querySelector(selector).addEventListener('click', () => {
+            let element = document.querySelector(selector);
+            element.replaceWith(createElement({ type: 'input', className: selector.slice(1) }));
+
+            element = document.querySelector(selector);
+            element.setAttribute('type', 'number');
+            element.setAttribute('min', 1);
+            element.setAttribute('max', max);
+            element.setAttribute('value', value + 1);
+            element.focus();
+
+            const update = () => {
+                const newValue = element.value - 1;
+                if (newValue === value) {
+                    displayPositionDetails();
+                    return;
+                }
+
+                updateValue(newValue);
+                displayPage(volume, chapterIndex, pageIndex);
+            };
+
+            element.addEventListener('blur', update);
+            element.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') update();
+            });
+        });
+    };
+
+    addSkipEvent('.chapterIndex', volume.chapters.length, chapterIndex, newValue => chapterIndex = newValue);
+    addSkipEvent('.pageIndex', volume.chapters[chapterIndex].files.length, pageIndex, newValue => pageIndex = newValue);
+}
 
 
 // Mobile support
@@ -233,3 +276,22 @@ fileSelector.onchange = async () => {
             displayPage(volume, chapterIndex, pageIndex);
     });
 };
+
+
+// Helpers
+
+function createElement(options = {}) {
+    const {
+        type = 'div',
+        text = '',
+        className = '',
+        id = ''
+    } = options
+
+    let element = document.createElement(type);
+    if (text) element.textContent = text;
+    if (className) element.className = className;
+    if (id) element.id = id;
+
+    return element;
+}
